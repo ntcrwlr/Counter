@@ -9,11 +9,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var count: UILabel!
-    @IBOutlet weak var buttonMinus: UIButton!
-    @IBOutlet weak var buttonPlus: UIButton!
-    @IBOutlet weak var reset: UIButton!
-    @IBOutlet weak var history: UITextView!
+    @IBOutlet weak private var count: UILabel!
+    @IBOutlet weak private var buttonMinus: UIButton!
+    @IBOutlet weak private var buttonPlus: UIButton!
+    @IBOutlet weak private var reset: UIButton!
+    @IBOutlet weak private var history: UITextView!
     
     private var counter: Int = 0
     
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         history.text = "История изменений:\n"
     }
     
-    @IBAction func minus(_ sender: Any) {
+    @IBAction private func minus(_ sender: Any) {
         if counter > 0 {
             let oldValue = counter
             counter -= 1
@@ -36,14 +36,14 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func plus(_ sender: Any) {
+    @IBAction private func plus(_ sender: Any) {
         let oldValue = counter
         counter += 1
         updateCounterDisplay()
         logToHistory("значение изменено на +1:   \(oldValue) → \(counter)")
     }
     
-    @IBAction func resetCounter(_ sender: Any) {
+    @IBAction private func resetCounter(_ sender: Any) {
         let oldValue = counter
         counter = 0
         updateCounterDisplay()
@@ -58,8 +58,6 @@ class ViewController: UIViewController {
         let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
         let logEntry = "[\(timestamp)] \(action)\n"
         history.text += logEntry
-        
-        // Единственная строка для автоматической прокрутки
         history.scrollRangeToVisible(NSMakeRange(history.text.count - 1, 1))
     }
 }
